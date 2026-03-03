@@ -1,5 +1,6 @@
 package com.sushma.practice.marketplace.entity;
 
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,28 +18,29 @@ import jakarta.validation.constraints.Size;
 public class ProductEntity {
 
 	@Id
-	@Column(name="PRODUCT_ID")
-	private Long productId;
-	
+	@Column(name = "PRODUCT_ID")
+	private UUID productId;
+
 	@Column(name = "PRODUCT_NAME")
 	@NotBlank(message = "Product name must not be blank.")
 	private String productName;
-	
+
 	@Column(name = "PRODUCT_CATEGORY")
 	@NotBlank(message = "Category name must not be blank.")
-	@Size(min=5, max=20, message = "Size limit exceeds.")
+	@Size(min = 5, max = 20, message = "Size limit exceeds.")
 	private String productCategory;
-	
+
 	@Column
 	@NotNull(message = "Price must not be blank.")
 	@Positive(message = "Price must be greater than 0.")
 	private Double price;
-	
-	public ProductEntity() {}
 
-	public ProductEntity(Long productId, @NotBlank(message = "Product name must not be blank.") String productName,
+	public ProductEntity() {
+	}
+
+	public ProductEntity(UUID productId, @NotBlank(message = "Product name must not be blank.") String productName,
 			@NotBlank(message = "Category name must not be blank.") @Size(min = 5, max = 20, message = "Size limit exceeds.") String productCategory,
-			@NotEmpty(message = "Price must not be blank.") Double price) {
+			@NotNull(message = "Price must not be blank.") @Positive(message = "Price must be greater than 0.") Double price) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -46,11 +48,11 @@ public class ProductEntity {
 		this.price = price;
 	}
 
-	public Long getProductId() {
+	public UUID getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Long productId) {
+	public void setProductId(UUID productId) {
 		this.productId = productId;
 	}
 
@@ -77,5 +79,5 @@ public class ProductEntity {
 	public void setPrice(Double price) {
 		this.price = price;
 	};
-	
+
 }
